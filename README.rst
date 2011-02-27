@@ -20,7 +20,7 @@ explains the formula:
 If, for example, you have a plot of land with five vertices (x1,y1),
 (x2,y2),(x3,y3),(x4,y4) and (x5,y5), the area would be
 
-  A = (1/2)(x1*y2 - x2*y1 + x2*y3 - x3*y2 + x3y4 - x4y3 + x4*y5 - x5*y4 + x5*y1 - x1*y5)
+    A = (1/2)(x1*y2 - x2*y1 + x2*y3 - x3*y2 + x3y4 - x4y3 + x4*y5 - x5*y4 + x5*y1 - x1*y5)
 
 
 Referencies
@@ -40,13 +40,13 @@ $ python setup.py install
 Usage
 *****
 
-$ area_polygon.py --command
-Number of vertices: 3
-Vertice (X, Y): 30,28
-Vertice (X, Y): 30,33
-Vertice (X, Y): 50,30
---------------------
-The area of the polygon: 50.00
+    $ area_polygon.py --command
+    Number of vertices: 3
+    Vertice (X, Y): 30,28
+    Vertice (X, Y): 30,33
+    Vertice (X, Y): 50,30
+    --------------------
+    The area of the polygon: 50.00
 
 
 Dependecies
@@ -58,5 +58,5 @@ Dependecies
 Project Information
 *******************
 
-`Author`: Nycholas de Oliveira e Olivera
-`License`: New BSD License
+`Author:` Nycholas de Oliveira e Olivera
+`License:` New BSD License
