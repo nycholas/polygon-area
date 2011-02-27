@@ -40,6 +40,8 @@ $ python setup.py install
 Usage
 *****
 
+::
+
     $ area_polygon.py --command
     Number of vertices: 3
     Vertice (X, Y): 30,28
@@ -59,4 +61,5 @@ Project Information
 *******************
 
 `Author:` Nycholas de Oliveira e Olivera
+
 `License:` New BSD License
