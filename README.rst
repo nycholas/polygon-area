@@ -34,7 +34,9 @@ Referencies
 Installation
 ************
 
-$ python setup.py install
+::
+
+    $ python setup.py install
 
 
 Usage
@@ -60,6 +62,7 @@ Dependecies
 Project Information
 *******************
 
-`Author:` Nycholas de Oliveira e Olivera
+::
 
-`License:` New BSD License
+Author: Nycholas de Oliveira e Olivera
+License: New BSD License
