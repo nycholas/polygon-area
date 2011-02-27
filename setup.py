@@ -149,7 +149,7 @@ def get_packages():
 def get_all_packages():
     fls = []
     for dirpath, dirnames, filenames in os.walk(os.path.join(os.curdir,
-                                                             'moonstone')):
+                                                             'polygon_area')):
         for filename in fnmatch.filter(filenames, '*.py'):
             fileui = os.path.join(dirpath, filename)
             if not os.access(fileui, os.R_OK):
@@ -175,8 +175,8 @@ def get_package_modules():
 
 def get_scripts():
     if os.name == 'posix':
-        return [os.path.join('resources', 'scripts', 'moonstone')]
-    return [os.path.join('resources', 'scripts', 'moonstone.bat')]
+        return [os.path.join('resources', 'scripts', 'polygon_area')]
+    return [os.path.join('resources', 'scripts', 'polygon_area.bat')]
 
 def get_data_files():
     data_files = []
@@ -193,7 +193,7 @@ def get_data_files():
                       [os.path.join(data_path_src, 'logging.conf'),]))
 
     data_path_src = os.path.join('resources')
-    data_path_dst = os.path.join(os.path.expanduser('~'), '.moonstone',
+    data_path_dst = os.path.join(os.path.expanduser('~'), '.polygon_area',
                                  'resources')
     data_files.append((data_path_dst,
                       [os.path.join(data_path_src, 'logging.conf'),]))
@@ -203,16 +203,16 @@ def get_data_files():
     data_files.append((data_path_dst, []))
 
     data_path_src = os.path.join('resources', 'log')
-    data_path_dst = os.path.join(os.path.expanduser('~'), '.moonstone', 'log')
+    data_path_dst = os.path.join(os.path.expanduser('~'), '.polygon_area', 'log')
     data_files.append((data_path_dst, []))
 
-    data_path_src = os.path.join('moonstone', 'ilsa', 'resources')
+    data_path_src = os.path.join('polygon_area', 'ilsa', 'resources')
     data_path_dst = os.path.join('resources', 'ilsa')
     data_files.append((data_path_dst,
                       [os.path.join(data_path_src, 'plugin.conf'),]))
 
-    data_path_src = os.path.join('moonstone', 'ilsa', 'resources')
-    data_path_dst = os.path.join(os.path.expanduser('~'), '.moonstone',
+    data_path_src = os.path.join('polygon_area', 'ilsa', 'resources')
+    data_path_dst = os.path.join(os.path.expanduser('~'), '.polygon_area',
                                  'resources', 'ilsa')
     data_files.append((data_path_dst,
                       [os.path.join(data_path_src, 'plugin.conf'),]))
@@ -227,11 +227,11 @@ def get_data_files():
         listFiles = []
         diretory = os.path.join('resources', 'locale', lang, 'LC_MESSAGES')
         mo = os.path.join('resources', 'locale', lang,
-                          'LC_MESSAGES', 'moonstone.mo')
+                          'LC_MESSAGES', 'polygon_area.mo')
         if os.path.isfile(mo):
            listFiles.append(mo)
         qm = os.path.join('resources', 'locale', lang,
-                          'LC_MESSAGES', 'moonstone.qm')
+                          'LC_MESSAGES', 'polygon_area.qm')
         if os.path.isfile(qm):
             listFiles.append(qm)
         data_files.append((diretory, listFiles))
@@ -262,7 +262,7 @@ def get_include_files():
         include_files.append((os.path.join(data_path_src, fl),
                            os.path.join(data_path_dst, fl)))
 
-    data_path_src = os.path.join('moonstone', 'ilsa', 'resources')
+    data_path_src = os.path.join('polygon_area', 'ilsa', 'resources')
     data_path_dst = os.path.join('resources', 'ilsa')
     filelist = ['plugin.conf']
     for fl in filelist:
@@ -280,11 +280,11 @@ def get_include_files():
         data_path_src = os.path.join('resources', 'locale', lang, 'LC_MESSAGES')
         data_path_dst = os.path.join('resources', 'locale', lang, 'LC_MESSAGES')
         mo = os.path.join('resources', 'locale', lang,
-                          'LC_MESSAGES', 'moonstone.mo')
+                          'LC_MESSAGES', 'polygon_area.mo')
         if os.path.isfile(mo):
            include_files.append((mo, mo))
         qm = os.path.join('resources', 'locale', lang,
-                          'LC_MESSAGES', 'moonstone.qm')
+                          'LC_MESSAGES', 'polygon_area.qm')
         if os.path.isfile(qm):
             include_files.append((qm, qm))
     return include_files
