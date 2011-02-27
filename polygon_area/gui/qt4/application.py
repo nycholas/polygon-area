@@ -17,7 +17,7 @@
 #    its contributors may be used to endorse or promote products derived from
 #    this software without specific prior written permission.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
 # ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
@@ -28,23 +28,32 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-import os
+import sys
 
-from PySide import QtCore, QtGui
+try:
+    from PySide import QtCore, QtGui, QtOpenGL, QtSvg
+except ImportError, e:
+    print 'This script requires PySide 4.7 or later'
+    print 'Please install it. The source for PySide can be found at: ' \
+          'http://www.pyside.org/.'
+    print 'Error: %s' % e
+    sys.exit(-1)
 
-from widgets.ui_mainwindow import Ui_MainWindow
 
-
-class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
-
-    def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent)
-        self.setupUi(self)
+class Application(QtGui.QApplication):
+    
+    def __init__(self, args):
+        super(Application, self).__init__(args)
+        
+    def mainLoop(self):
+        from mainwindow import MainWindow
+        self.mainWindow = MainWindow()
+        self.mainWindow.show()
+        
+        # Exec main loop
+        sys.exit(self.exec_())
         
 
 if __name__ == '__main__':
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    win = MainWindow()
-    win.show()
-    sys.exit(app.exec_())
+    app = Application()
+    app.mainLoop()

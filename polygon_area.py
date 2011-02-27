@@ -29,8 +29,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 import sys
-if sys.hexversion < 0x02040000:
-    print 'This script requires Python 2.4 or later.'
+if sys.hexversion < 0x02060000:
+    print 'This script requires Python 2.6 or later.'
     print 'Currently run with version: %s' % sys.version
     print 'Please install it. The source for Python can be found at: ' \
           'http://www.python.org/.'
@@ -52,7 +52,7 @@ def main(args):
         usage='Usage: %prog [options]',
         version='%prog ' + str(__version__))
     parser.add_option('-c', '--command',
-                      action='store_true', dest='is_command', default=True,
+                      action='store_true', dest='is_command', default=False,
                       help='Terminal mode')
     parser.add_option('-t', '--test',
                       action='store_true', dest='is_test', default=False,
@@ -116,6 +116,10 @@ def main(args):
     # Convert string in dictionary!
     opts = eval(str(options))
 
+    from polygon_area.gui.main import Application
+    app = Application(args)
+    app.mainLoop()
+    
     
 if __name__ == '__main__':
     import sys

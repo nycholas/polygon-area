@@ -28,23 +28,12 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-import os
-
-from PySide import QtCore, QtGui
-
-from widgets.ui_mainwindow import Ui_MainWindow
-
-
-class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
-
-    def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent)
-        self.setupUi(self)
+try:
+    from qt4.application import Application
+except ImportError:
+    pass
         
 
 if __name__ == '__main__':
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    win = MainWindow()
-    win.show()
-    sys.exit(app.exec_())
+    app = Application()
+    app.mainLoop()
