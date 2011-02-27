@@ -76,7 +76,7 @@ else:
     extra_args = dict()
 
 long_description = '''\
-area-polygon
+Polygon Area
 ============
 
 Calculate the area of the polygon.
@@ -187,37 +187,7 @@ def get_data_files():
                        ['AUTHORS', 'ChangeLog', 'CONTRIBUTORS', 'COPYING',
                         'FAQ', 'INSTALL', 'README', 'THANKS', 'TODO',]))
 
-    data_path_src = os.path.join('resources')
-    data_path_dst = os.path.join('resources')
-    data_files.append((data_path_dst,
-                      [os.path.join(data_path_src, 'logging.conf'),]))
-
-    data_path_src = os.path.join('resources')
-    data_path_dst = os.path.join(os.path.expanduser('~'), '.polygon_area',
-                                 'resources')
-    data_files.append((data_path_dst,
-                      [os.path.join(data_path_src, 'logging.conf'),]))
-
-    data_path_src = os.path.join('resources', 'log')
-    data_path_dst = os.path.join('resources', 'log')
-    data_files.append((data_path_dst, []))
-
-    data_path_src = os.path.join('resources', 'log')
-    data_path_dst = os.path.join(os.path.expanduser('~'), '.polygon_area', 'log')
-    data_files.append((data_path_dst, []))
-
-    data_path_src = os.path.join('polygon_area', 'ilsa', 'resources')
-    data_path_dst = os.path.join('resources', 'ilsa')
-    data_files.append((data_path_dst,
-                      [os.path.join(data_path_src, 'plugin.conf'),]))
-
-    data_path_src = os.path.join('polygon_area', 'ilsa', 'resources')
-    data_path_dst = os.path.join(os.path.expanduser('~'), '.polygon_area',
-                                 'resources', 'ilsa')
-    data_files.append((data_path_dst,
-                      [os.path.join(data_path_src, 'plugin.conf'),]))
-
-    locale = os.path.join('resources', 'locale')
+    '''locale = os.path.join('resources', 'locale')
     try:
         langs = [i for i in os.listdir(locale) \
                  if os.path.isdir(os.path.join(locale, i))]
@@ -235,6 +205,7 @@ def get_data_files():
         if os.path.isfile(qm):
             listFiles.append(qm)
         data_files.append((diretory, listFiles))
+    '''
     return data_files
 
 def get_include_files():
@@ -248,28 +219,7 @@ def get_include_files():
         include_files.append((os.path.join(data_path_src, fl),
                            os.path.join(data_path_dst, fl)))
 
-    data_path_src = os.path.join('resources')
-    data_path_dst = os.path.join('resources')
-    filelist = ['logging.conf',]
-    for fl in filelist:
-        include_files.append((os.path.join(data_path_src, fl),
-                           os.path.join(data_path_dst, fl)))
-
-    data_path_src = os.path.join('resources', 'log')
-    data_path_dst = os.path.join('resources', 'log')
-    filelist = []
-    for fl in filelist:
-        include_files.append((os.path.join(data_path_src, fl),
-                           os.path.join(data_path_dst, fl)))
-
-    data_path_src = os.path.join('polygon_area', 'ilsa', 'resources')
-    data_path_dst = os.path.join('resources', 'ilsa')
-    filelist = ['plugin.conf']
-    for fl in filelist:
-        include_files.append((os.path.join(data_path_src, fl),
-                           os.path.join(data_path_dst, fl)))
-
-    locale = os.path.join('resources', 'locale')
+    '''locale = os.path.join('resources', 'locale')
     try:
         langs = [i for i in os.listdir(locale) \
                  if os.path.isdir(os.path.join(locale, i))]
@@ -287,6 +237,7 @@ def get_include_files():
                           'LC_MESSAGES', 'polygon_area.qm')
         if os.path.isfile(qm):
             include_files.append((qm, qm))
+    '''
     return include_files
 
 def run():
