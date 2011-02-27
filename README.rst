@@ -1,4 +1,4 @@
-area-polygon
+Polygon Area
 ============
 
 Calculate the area of the polygon.
@@ -44,13 +44,13 @@ Usage
 
 ::
 
-    $ area_polygon.py --command
+    $ polygon_area.py --command
     Number of vertices: 3
     Vertice (X, Y): 30,28
     Vertice (X, Y): 30,33
     Vertice (X, Y): 50,30
     --------------------
-    The area of the polygon: 50.00
+    Polygon area: 50.00 u.a.
 
 
 Dependecies
