@@ -28,32 +28,40 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-import os
-
-from PySide import QtCore, QtGui, QtSvg
-
-from widgets.ui_mainwindow import Ui_MainWindow
-from graph import GraphWidget
+from PySide import QtCore, QtGui
 
 
-class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
-
-    def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent)
-        self.setupUi(self)
-        self.createWidgets()
+class Vertice(QtGui.QGraphicsItem):
+    
+    def __init__(self, graphicScene, parent=None):
+        super(Vertice, self).__init__(parent)
         
-    def createWidgets(self):
-        self.graph = GraphWidget(self.centralwidget)
-        self.gridLayout.addWidget(self.graph, 0, 0, 1, 1)
+    def boundingRect(self):
+        adjust = 2
+        return QtCore.QRectF(-10 - adjust, -10 - adjust,
+                             23 + adjust, 23 + adjust)
         
-    def createActions(self):
-        pass
+    def shape(self):
+        path = QtGui.QPainterPath()
+        path.addEllipse(-5, -5, 5, 5)
+        return path
         
-
-if __name__ == '__main__':
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    win = MainWindow()
-    win.show()
-    sys.exit(app.exec_())
+    def paint(self, painter, option, widget):
+        painter.setPen(QtCore.Qt.NoPen)
+        painter.setBrush(QtCore.Qt.darkGray)
+        painter.drawEllipse(-2.5, -2.5, 3.5, 3.5)
+        
+        gradient = QtGui.QRadialGradient(-2.5, -2.5, 5)
+        if option.state & QtGui.QStyle.State_Sunken:
+            gradient.setCenter(2.5, 2.5)
+            gradient.setFocalPoint(2.5, 2.5)
+            gradient.setColorAt(1, QtGui.QColor(QtCore.Qt.yellow).light(120))
+            gradient.setColorAt(0, QtGui.QColor(QtCore.Qt.darkYellow).light(120))
+        else:
+            gradient.setColorAt(0, QtCore.Qt.yellow)
+            gradient.setColorAt(1, QtCore.Qt.darkYellow)
+        painter.setBrush(gradient)
+        painter.setPen(QtGui.QPen(QtCore.Qt.black, 0))
+        painter.drawEllipse(-5, -5, 5, 5)
+            
+            

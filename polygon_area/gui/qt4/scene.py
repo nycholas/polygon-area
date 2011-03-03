@@ -28,32 +28,22 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-import os
+from PySide import QtCore, QtGui
 
-from PySide import QtCore, QtGui, QtSvg
-
-from widgets.ui_mainwindow import Ui_MainWindow
-from graph import GraphWidget
+from vertice import Vertice
 
 
-class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
-
+class GraphScene(QtGui.QGraphicsScene):
+    
     def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent)
-        self.setupUi(self)
-        self.createWidgets()
+        super(GraphScene, self).__init__(parent)
         
-    def createWidgets(self):
-        self.graph = GraphWidget(self.centralwidget)
-        self.gridLayout.addWidget(self.graph, 0, 0, 1, 1)
+    def mousePressEvent(self, event):
+        super(GraphScene, self).mouseMoveEvent(event)
+        p = event.scenePos()
+        print 'click: %s' % p
         
-    def createActions(self):
-        pass
+        vertice = Vertice(self)
+        vertice.setPos(p)
+        self.addItem(vertice)
         
-
-if __name__ == '__main__':
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    win = MainWindow()
-    win.show()
-    sys.exit(app.exec_())
