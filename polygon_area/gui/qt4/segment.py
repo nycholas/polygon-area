@@ -28,31 +28,59 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+import math
+
 from PySide import QtCore, QtGui
 
-from scene import GraphScene
 
-
-class GraphWidget(QtGui.QGraphicsView):
+class Segment(QtGui.QGraphicsItem):
+    PI = math.pi
+    TWO_PI = math.pi * 2.0
     
-    def __init__(self, parent=None):
-        super(GraphWidget, self).__init__(parent)
-        self.createWidgets()
+    def __init__(self, graphicScene, parent=None):
+        super(Segment, self).__init__(parent)
+        self._penWidth = 1
+        self._arrowSize = 100
+        self._vt1 = QtCore.QPointF(0, 0)
+        self._vt2 = QtCore.QPointF(0, 0)
         self.updateWidgets()
+        
+    def setPos(self, vt1, vt2):
+        self._vt1 = vt1
+        self._vt2 = vt2
     
-    def createWidgets(self):
-        self.setObjectName("GraphWidget")
-        self.scene = GraphScene(self)
-        self.scene.setItemIndexMethod(QtGui.QGraphicsScene.NoIndex)
-        self.scene.setSceneRect(-200, -200, 400, 400)
+    def pos(self):
+        return (self._vt1, self._vt2)
+        
+    def boundingRect(self):
+        extra = (self._penWidth + self._arrowSize) / 2.0
+        rect = QtCore.QRectF(self.mapFromItem(self._vt1, 0, 0), 
+                             self.mapFromItem(self._vt2, 0, 0)) \
+            .normalized() \
+            .adjusted(-extra, -extra, extra, extra)
+        return rect
+            
+    def shape(self):
+        path = QtGui.QPainterPath()
+        #path.addRect(self.mapFromItem(self._vt1, 0, 0),
+        #             self.mapFromItem(self._vt2, 0, 0),
+        #             1, 1)
+        return path
+        
+    def paint(self, painter, option, widget):
+        line = QtCore.QLineF(self.mapFromItem(self._vt1, 0, 0), 
+                             self.mapFromItem(self._vt2, 0, 0))
+        
+        if int(line.length()) == 0:
+            return
+            
+        # Draw the line itself
+        painter.setPen(QtGui.QPen(QtCore.Qt.black, self._penWidth, 
+                                  QtCore.Qt.SolidLine, QtCore.Qt.RoundCap,
+                                  QtCore.Qt.RoundJoin))
+        painter.setBrush(QtCore.Qt.black)
+        painter.drawLine(line)
         
     def updateWidgets(self):
-        self.setScene(self.scene)
-        #self.setCacheMode(CacheBackground)
-        #self.setViewportUpdateMode(BoundingRectViewportUpdate)
-        self.setRenderHint(QtGui.QPainter.Antialiasing)
-        #self.setTransformationAnchor(AnchorUnderMouse)
-        self.scale(0.8, 0.8)
-        self.setMinimumSize(400, 400)
-        self.setWindowTitle("Polygon Area")
-
+        self.setZValue(-1)
+            

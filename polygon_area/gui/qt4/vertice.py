@@ -35,33 +35,68 @@ class Vertice(QtGui.QGraphicsItem):
     
     def __init__(self, graphicScene, parent=None):
         super(Vertice, self).__init__(parent)
+        self._diameter = 30
+        self._radius = self._diameter / 2.0
+        self._penWidth = 0
+        self._bounds = [-self._diameter * 0.5, -self._diameter * 0.5, 
+                        self._diameter, self._diameter]
+        self._adjust = self._diameter * 0.1
+        self.updateWidgets()
         
     def boundingRect(self):
-        adjust = 2
-        return QtCore.QRectF(-10 - adjust, -10 - adjust,
-                             23 + adjust, 23 + adjust)
+        rect = QtCore.QRectF(self._bounds[0] - self._adjust, 
+                             self._bounds[1] - self._adjust,
+                             self._bounds[2] + self._adjust, 
+                             self._bounds[3] + self._adjust)
+        return rect
         
     def shape(self):
         path = QtGui.QPainterPath()
-        path.addEllipse(-5, -5, 5, 5)
+        path.addEllipse(self._bounds[0], self._bounds[1],
+                        self._bounds[2], self._bounds[3])
         return path
         
     def paint(self, painter, option, widget):
+    
+        # Draw the shadow ellipse
         painter.setPen(QtCore.Qt.NoPen)
         painter.setBrush(QtCore.Qt.darkGray)
-        painter.drawEllipse(-2.5, -2.5, 3.5, 3.5)
+        painter.drawEllipse(self._bounds[0]*0.5, self._bounds[1]*0.5,
+                            self._bounds[2]*0.8, self._bounds[3]*0.8)
         
-        gradient = QtGui.QRadialGradient(-2.5, -2.5, 5)
+        gradient = QtGui.QRadialGradient(-self._radius * 0.3, 
+                                         -self._radius * 0.3, 
+                                         self._radius * 0.8)
         if option.state & QtGui.QStyle.State_Sunken:
-            gradient.setCenter(2.5, 2.5)
-            gradient.setFocalPoint(2.5, 2.5)
-            gradient.setColorAt(1, QtGui.QColor(QtCore.Qt.yellow).light(120))
-            gradient.setColorAt(0, QtGui.QColor(QtCore.Qt.darkYellow).light(120))
+            gradient.setCenter(self._radius, self._radius)
+            gradient.setFocalPoint(self._radius, self._radius)
+            gradient.setColorAt(0, 
+                                QtGui.QColor(QtCore.Qt.darkYellow).darker(120))
+            gradient.setColorAt(1, QtGui.QColor(QtCore.Qt.yellow).darker(120))
         else:
             gradient.setColorAt(0, QtCore.Qt.yellow)
             gradient.setColorAt(1, QtCore.Qt.darkYellow)
+        
+        # Draw the ellipse itself
         painter.setBrush(gradient)
-        painter.setPen(QtGui.QPen(QtCore.Qt.black, 0))
-        painter.drawEllipse(-5, -5, 5, 5)
+        painter.setPen(QtGui.QPen(QtCore.Qt.black, self._penWidth))
+        painter.drawEllipse(self._bounds[0], self._bounds[1],
+                            self._bounds[2], self._bounds[3])
+                            
+    def mousePressEvent(self, event):
+        super(Vertice, self).mousePressEvent(event)
+        self.update()
+        
+    def mouseReleaseEvent(self, event):
+        super(Vertice, self).mouseReleaseEvent(event)
+        self.update()
+    
+    def mouseMoveEvent(self, event):
+        super(Vertice, self).mouseMoveEvent(event)
+        self.update()
             
-            
+    def updateWidgets(self):
+        #self.setFlag(QtGui.QGraphicsItem.ItemIsMovable)
+        self.setFlag(QtGui.QGraphicsItem.ItemSendsGeometryChanges)
+        self.setCacheMode(QtGui.QGraphicsItem.CacheMode.DeviceCoordinateCache)
+        self.setZValue(1)
