@@ -26,6 +26,7 @@ If, for example, you have a plot of land with five vertices (x1,y1),
 Referencies
 ***********
 
+* http://en.wikipedia.org/wiki/Polygon
 * http://mathworld.wolfram.com/PolygonArea.html
 * http://mathforum.org/library/drmath/view/64552.html
 * http://matemagicasenumeros.blogspot.com/2011/02/mate-magica-na-area.html
