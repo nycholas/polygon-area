@@ -35,7 +35,7 @@ class Vertice(QtGui.QGraphicsItem):
     
     def __init__(self, graphicScene, parent=None):
         super(Vertice, self).__init__(parent)
-        self._diameter = 30
+        self._diameter = 6
         self._radius = self._diameter / 2.0
         self._penWidth = 0
         self._bounds = [-self._diameter * 0.5, -self._diameter * 0.5, 
