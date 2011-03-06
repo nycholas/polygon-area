@@ -30,11 +30,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 from PySide import QtCore, QtGui
 
-try:
-    QtCore.QString
-except AttributeError:
-    QtCore.QString = str
-
 from ...figures.polygon import Polygon
 from vertice import Vertice
 from segment import Segment

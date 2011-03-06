@@ -39,6 +39,11 @@ class GraphWidget(QtGui.QGraphicsView):
         super(GraphWidget, self).__init__(parent)
         self.createWidgets()
         self.updateWidgets()
+        
+    def mouseMoveEvent(self, event):
+        super(GraphWidget, self).mouseMoveEvent(event)
+        #pt = event.pos()
+        #self.statusBarShowMessage('(%2.f, %2.f)' % (pt.x(), pt.y()))
     
     def createWidgets(self):
         self.setObjectName("GraphWidget")
@@ -55,4 +60,10 @@ class GraphWidget(QtGui.QGraphicsView):
         self.scale(0.8, 0.8)
         self.setMinimumSize(400, 400)
         self.setWindowTitle("Polygon Area")
+        self.setMouseTracking(True)
+        
+    def statusBarShowMessage(self, st):
+        qst = QtCore.QString(st)
+        mainWindow = QtGui.qApp.mainWindow
+        mainWindow.statusBar().showMessage(qst)
 

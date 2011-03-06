@@ -44,14 +44,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.graph = None
         self.scene = None
         self.createWidgets()
+        self.updateWidgets()
         
-    def createWidgets(self):
-        self.graph = GraphWidget(self.centralwidget)
-        self.scene = self.graph.scene
-        self.gridLayout.addWidget(self.graph, 0, 0, 1, 1)
-        
-    def createActions(self):
-        pass
+    #@property
+    #def statusBar(self):
+    #    return self.statusBar()
         
     def createTest(self):
         # Crate vertices of polygon
@@ -84,6 +81,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         # Check test
         #assert self.scene.polygonArea == 50.0
         assert self.scene.polygonArea == 1050.0
+        
+    def createWidgets(self):
+        self.graph = GraphWidget(self.centralwidget)
+        self.scene = self.graph.scene
+        self.gridLayout.addWidget(self.graph, 0, 0, 1, 1)
+        
+    def updateWidgets(self):
+        self.setWindowTitle("Polygon Area")        
+        
+    def createActions(self):
+        pass
         
 
 if __name__ == '__main__':

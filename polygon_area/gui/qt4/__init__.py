@@ -28,3 +28,17 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+import sys
+
+try:
+    from PySide import QtCore, QtGui, QtOpenGL, QtSvg
+except ImportError, e:
+    sys.stderr.write('This script requires PySide 4.7 or later\n')
+    sys.stderr.write('Please install it. The source for PySide can be ' \
+                     'found at: http://www.pyside.org/.\n')
+    sys.exit(-1)
+
+try:
+    QtCore.QString
+except AttributeError:
+    QtCore.QString = str
