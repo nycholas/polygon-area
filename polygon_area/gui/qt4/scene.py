@@ -86,7 +86,7 @@ class GraphScene(QtGui.QGraphicsScene):
         
     def createTextVertice(self, vertice):
         (x, y) = (vertice.pos().x(), vertice.pos().y())
-        st = '(%2.f, %2.f)' % (x, y)
+        st = '(%.2f, %.2f)' % (x, y)
         qst = QtCore.QString(st)
         
         font = QtGui.QFont()
