@@ -72,6 +72,8 @@ class GraphScene(QtGui.QGraphicsScene):
         return segment
         
     def createPolygon(self):
+        # Adds vertices to the polygon except the last, because 
+        # this is already accounted for (repeated)
         for vertice in self._vertices[:-1]:
             self.polygon.add_vertice([vertice.pos().x(),
                                       vertice.pos().y()])
