@@ -33,21 +33,35 @@ import sys
 try:
     from PySide import QtCore, QtGui, QtOpenGL, QtSvg
 except ImportError, e:
-    print 'This script requires PySide 4.7 or later'
-    print 'Please install it. The source for PySide can be found at: ' \
-          'http://www.pyside.org/.'
-    print 'Error: %s' % e
+    sys.stderr.write('This script requires PySide 4.7 or later\n')
+    sys.stderr.write('Please install it. The source for PySide can be ' \
+                     'found at: http://www.pyside.org/.\n')
     sys.exit(-1)
 
 
 class Application(QtGui.QApplication):
     
-    def __init__(self, args):
-        super(Application, self).__init__(args)
+    def __init__(self, argv, *args, **kwargs):
+        super(Application, self).__init__(argv)
         
+        # Command line arguments
+        (args, options) = args
+
+        self.is_test = options.get('is_test', False)
+        self.is_logging = options.get('is_logging', False)
+        self.is_debug = options.get('is_debug', False)
+            
     def mainLoop(self):
         from mainwindow import MainWindow
+        
+        # Initialize main window
         self.mainWindow = MainWindow()
+        
+        # Check is a test
+        if self.is_test:
+            self.mainWindow.createTest()
+        
+        # Show main window
         self.mainWindow.show()
         
         # Exec main loop

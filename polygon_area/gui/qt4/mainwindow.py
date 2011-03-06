@@ -41,14 +41,49 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+        self.graph = None
+        self.scene = None
         self.createWidgets()
         
     def createWidgets(self):
         self.graph = GraphWidget(self.centralwidget)
+        self.scene = self.graph.scene
         self.gridLayout.addWidget(self.graph, 0, 0, 1, 1)
         
     def createActions(self):
         pass
+        
+    def createTest(self):
+        # Crate vertices of polygon
+        vertices = [
+            self.scene.createVertice(QtCore.QPointF(30, 28)),
+            self.scene.createVertice(QtCore.QPointF(30, 33)),
+            self.scene.createVertice(QtCore.QPointF(50, 30)),
+        ]
+        vertices = [
+            self.scene.createVertice(QtCore.QPointF(20, 30)),
+            self.scene.createVertice(QtCore.QPointF(20, 50)),
+            self.scene.createVertice(QtCore.QPointF(40, 35)),
+            self.scene.createVertice(QtCore.QPointF(60, 50)),
+            self.scene.createVertice(QtCore.QPointF(60, 20)),
+            self.scene.createVertice(QtCore.QPointF(50, 5)),
+            self.scene.createVertice(QtCore.QPointF(20, 30)),
+        ]
+        
+        # Draw vertices of polygon
+        for vertice in vertices:
+            self.scene.addVertice(vertice)
+        self.scene.addVertice(vertices[0], lastVertice=True)
+        
+        # Draw polygon
+        self.scene.createPolygon()
+        
+        # Painting hangs
+        self.scene.isPaint = False
+        
+        # Check test
+        #assert self.scene.polygonArea == 50.0
+        assert self.scene.polygonArea == 1050.0
         
 
 if __name__ == '__main__':

@@ -32,8 +32,4 @@ try:
     from qt4.application import Application
 except ImportError:
     pass
-        
 
-if __name__ == '__main__':
-    app = Application()
-    app.mainLoop()

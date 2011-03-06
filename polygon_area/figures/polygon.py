@@ -95,8 +95,11 @@ class Polygon(object):
                 (vertices[i][0] * vertices[i+1][1])
         area = k / 2.0
         return area
+        
+def doctest():
+    import doctest
+    doctest.testmod()
 
 
 if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
+    doctest()

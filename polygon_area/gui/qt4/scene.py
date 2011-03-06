@@ -44,8 +44,8 @@ class GraphScene(QtGui.QGraphicsScene):
     
     def __init__(self, parent=None):
         super(GraphScene, self).__init__(parent)
-        self._isPaint = True
         self._vertices = []
+        self.isPaint = True
         self.polygon = Polygon()
         self.polygonArea = 0.0
         
@@ -54,16 +54,16 @@ class GraphScene(QtGui.QGraphicsScene):
         pt = event.scenePos()
         print 'click: %s' % pt
         
-        if QtCore.Qt.LeftButton == event.button() and self._isPaint:
+        if QtCore.Qt.LeftButton == event.button() and self.isPaint:
             self.addVertice(self.createVertice(pt))
         elif QtCore.Qt.RightButton == event.button():
-            if self._isPaint:
+            if self.isPaint:
                 vertice = self.createVertice(pt)
                 for item in self.items():
                     if item.collidesWithItem(vertice):
                         self.addVertice(item, lastVertice=True)
                         self.createPolygon()
-                        self._isPaint = False
+                        self.isPaint = False
                         break
                         
     def createText(self, st, x, y):
@@ -90,7 +90,7 @@ class GraphScene(QtGui.QGraphicsScene):
         qst = QtCore.QString(st)
         
         font = QtGui.QFont()
-        font.setPointSize(font.pointSize() * 1)
+        font.setPointSize(font.pointSize() * 0.8)
         font.setStyleStrategy(QtGui.QFont.PreferAntialias)
         font.setBold(False)
         

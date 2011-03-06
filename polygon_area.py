@@ -30,10 +30,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 import sys
 if sys.hexversion < 0x02060000:
-    print 'This script requires Python 2.6 or later.'
-    print 'Currently run with version: %s' % sys.version
-    print 'Please install it. The source for Python can be found at: ' \
-          'http://www.python.org/.'
+    sys.stderr.write('This script requires Python 2.6 or later.\n')
+    sys.stderr.write('Currently run with version: \n%s\n' % sys.version)
+    sys.stderr.write('Please install it. The source for Python can be ' \
+                     'found at: http://www.python.org/.\n')
     sys.exit(-1)
 import os
 import logging
@@ -46,7 +46,7 @@ if not syspath in sys.path:
 
 __version__ = 0.1
 
-def main(args):
+def main(argv):
     logging.debug('In polygon_area.main()')
     parser = optparse.OptionParser(
         usage='Usage: %prog [options]',
@@ -64,11 +64,21 @@ def main(args):
                       action='store_true', dest='is_debug', default=False,
                       help='Verbose (debug) mode')
     (options, args) = parser.parse_args()
-    logging.debug(':: options: %s' % options)
-    logging.debug(':: args: %s' % args)
 
     if options.is_command:
         from polygon_area.figures.polygon import Polygon
+        
+        # Check is a test
+        if options.is_test:
+            from polygon_area.figures import polygon
+            
+            sys.stdout.write('-' * 20)
+            sys.stdout.write('\nUnit test running...\n')
+            
+            # Polygon doctest
+            polygon.doctest()
+            sys.stdout.write(' + Polygon: OK!\n')
+            sys.exit(0)
         
         number_vertices = input('Number of vertices: ')
 
@@ -107,17 +117,19 @@ def main(args):
 
             # Add vertice in polygon
             polygon.add_vertice(vertice)
+        
+        # Calculate the area of the polygon
         area = polygon.calc_area()
         
-        print '-' * 20
-        print 'Polygon area: %.2f u.a.' % area
+        sys.stdout.write('-' * 20)
+        sys.stdout.write('\nPolygon area: %.2f u.a.\n' % area)
         sys.exit(0)
 
     # Convert string in dictionary!
     opts = eval(str(options))
 
     from polygon_area.gui.main import Application
-    app = Application(args)
+    app = Application(argv, args, opts)
     app.mainLoop()
     
     
