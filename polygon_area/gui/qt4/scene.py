@@ -72,7 +72,7 @@ class GraphScene(QtGui.QGraphicsScene):
         return segment
         
     def createPolygon(self):
-        for vertice in self._vertices:
+        for vertice in self._vertices[:-1]:
             self.polygon.add_vertice([vertice.pos().x(),
                                       vertice.pos().y()])
         self.polygonArea = self.polygon.calc_area()
