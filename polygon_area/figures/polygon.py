@@ -94,7 +94,7 @@ class Polygon(object):
             k += (vertices[i][1] * vertices[i+1][0]) - \
                 (vertices[i][0] * vertices[i+1][1])
         area = k / 2.0
-        return abs(area)
+        return area
 
 
 if __name__ == '__main__':
