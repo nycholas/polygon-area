@@ -30,6 +30,11 @@
 # POSSIBILITY OF SUCH DAMAGE.
 from PySide import QtCore, QtGui
 
+try:
+    QtCore.QString
+except AttributeError:
+    QtCore.QString = str
+
 from ...figures.polygon import Polygon
 from vertice import Vertice
 from segment import Segment
@@ -60,7 +65,45 @@ class GraphScene(QtGui.QGraphicsScene):
                         self.createPolygon()
                         self._isPaint = False
                         break
-            
+                        
+    def createText(self, st, x, y):
+        qst = QtCore.QString(st)
+        
+        font = QtGui.QFont()
+        font.setPointSize(font.pointSize() * 1)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        font.setBold(True)
+        
+        fontMetrics = QtGui.QFontMetrics(font)
+        textHeight = fontMetrics.height()
+        textWidth = fontMetrics.width(qst)
+        
+        text = QtGui.QGraphicsTextItem(qst)
+        text.setDefaultTextColor(QtCore.Qt.black)
+        text.setPos(x + 3, y + 3)
+        text.setFont(font)
+        return text
+        
+    def createTextVertice(self, vertice):
+        (x, y) = (vertice.pos().x(), vertice.pos().y())
+        st = '(%2.f, %2.f)' % (x, y)
+        qst = QtCore.QString(st)
+        
+        font = QtGui.QFont()
+        font.setPointSize(font.pointSize() * 1)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        font.setBold(False)
+        
+        fontMetrics = QtGui.QFontMetrics(font)
+        textHeight = fontMetrics.height()
+        textWidth = fontMetrics.width(qst)
+        
+        text = QtGui.QGraphicsTextItem(qst)
+        text.setDefaultTextColor(QtCore.Qt.black)
+        text.setPos(x + 3, y + 3)
+        text.setFont(font)
+        return text
+                        
     def createVertice(self, pt):
         vertice = Vertice(self)
         vertice.setPos(pt)
@@ -81,28 +124,21 @@ class GraphScene(QtGui.QGraphicsScene):
         
         # TODO: Take away, ;-)
         st = 'Polygon area: %.2f u.a.' % self.polygonArea
-        qst = st #QtGui.QString(st)
-        
-        font = QtGui.QFont()
-        font.setPointSize(font.pointSize() * 1)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        font.setBold(True)
-        
-        fontMetrics = QtGui.QFontMetrics(font)
-        textHeight = fontMetrics.height()
-        textWidth = fontMetrics.width(qst)
-        
-        text = self.addText(qst, font)
-        text.setDefaultTextColor(QtCore.Qt.black)
-        text.setPos(-self.width() / 2.0, 
-                    self.height() / 2.0)
-        
+        (x, y) = (-self.width() / 2.0, self.height() / 2.0)
+        self.addItem(self.createText(st, x, y))
+                    
     def addVertice(self, vertice, lastVertice=False):
         # Draw vertice, if it does not exist in the list of vertices or 
         # if it is the last vertex of the polygon
         if vertice not in self._vertices or lastVertice:
             self._vertices.append(vertice)
+            
+            # Draw vertice
             self.addItem(vertice)
+            
+            # Draw text of the coordinates of vertice
+            if not lastVertice:
+                self.addItem(self.createTextVertice(vertice))
             
         # Draw segment
         vertices = self._vertices
