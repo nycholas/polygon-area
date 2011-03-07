@@ -17,7 +17,7 @@
 #    its contributors may be used to endorse or promote products derived from
 #    this software without specific prior written permission.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
 # ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
@@ -35,31 +35,33 @@ from scene import GraphScene
 
 class GraphWidget(QtGui.QGraphicsView):
     
-    def __init__(self, parent=None):
+    def __init__(self, index, parent=None):
         super(GraphWidget, self).__init__(parent)
+        self.index = index
         self.createWidgets()
         self.updateWidgets()
         
     def mouseMoveEvent(self, event):
         super(GraphWidget, self).mouseMoveEvent(event)
-        #pt = event.pos()
-        #self.statusBarShowMessage('(%2.f, %2.f)' % (pt.x(), pt.y()))
+        pt = event.pos()
+        self.statusBarShowMessage('Coordinate (%2.f, %2.f)' % (pt.x(), pt.y()))
     
     def createWidgets(self):
-        self.setObjectName("GraphWidget")
         self.scene = GraphScene(self)
         self.scene.setItemIndexMethod(QtGui.QGraphicsScene.NoIndex)
         self.scene.setSceneRect(-200, -200, 400, 400)
         
     def updateWidgets(self):
+        self.setObjectName('GraphWidget-%d' % self.index)
         self.setScene(self.scene)
-        #self.setCacheMode(CacheBackground)
-        #self.setViewportUpdateMode(BoundingRectViewportUpdate)
         self.setRenderHint(QtGui.QPainter.Antialiasing)
-        #self.setTransformationAnchor(AnchorUnderMouse)
         self.scale(0.8, 0.8)
         self.setMinimumSize(400, 400)
-        self.setWindowTitle("Polygon Area")
+        self.setWindowTitle(
+            QtGui.QApplication.translate('GraphWidget-%d' % self.index, 
+                                         'Polygon Area', 
+                                         None,
+                                         QtGui.QApplication.UnicodeUTF8))
         self.setMouseTracking(True)
         
     def statusBarShowMessage(self, st):

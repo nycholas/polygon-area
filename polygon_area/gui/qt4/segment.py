@@ -82,5 +82,8 @@ class Segment(QtGui.QGraphicsItem):
         painter.drawLine(line)
         
     def updateWidgets(self):
+        #self.setFlag(QtGui.QGraphicsItem.ItemIsMovable)
+        self.setFlag(QtGui.QGraphicsItem.ItemSendsGeometryChanges)
+        self.setCacheMode(QtGui.QGraphicsItem.CacheMode.DeviceCoordinateCache)
         self.setZValue(-1)
             

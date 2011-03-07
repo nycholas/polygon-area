@@ -6,46 +6,359 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>551</width>
-    <height>416</height>
+    <width>532</width>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Polygon Area</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/media/default/32x32/icons/polygon-area.png</normaloff>:/media/default/32x32/icons/polygon-area.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout"/>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="documentMode">
+       <bool>true</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>551</width>
-     <height>22</height>
+     <width>532</width>
+     <height>25</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="fileMenu">
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionNew"/>
+    <addaction name="newAction"/>
+    <addaction name="openAction"/>
+    <addaction name="recentsFormsAction"/>
+    <addaction name="separator"/>
+    <addaction name="saveAction"/>
+    <addaction name="saveAsAction"/>
+    <addaction name="separator"/>
+    <addaction name="printAction"/>
+    <addaction name="saveImageAction"/>
+    <addaction name="separator"/>
+    <addaction name="closeAction"/>
+    <addaction name="separator"/>
+    <addaction name="quitAction"/>
    </widget>
-   <widget class="QMenu" name="menuHelp">
+   <widget class="QMenu" name="helpMenu">
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <addaction name="polygonAreaHelpAction"/>
+    <addaction name="releaseNotesAction"/>
+    <addaction name="separator"/>
+    <addaction name="reportBugsAction"/>
+    <addaction name="separator"/>
+    <addaction name="aboutPolygonAreaAction"/>
    </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuHelp"/>
+   <widget class="QMenu" name="editMenu">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="undoAction"/>
+    <addaction name="redoAction"/>
+    <addaction name="separator"/>
+    <addaction name="cutAction"/>
+    <addaction name="copyAction"/>
+    <addaction name="pasteAction"/>
+    <addaction name="deleteAction"/>
+    <addaction name="separator"/>
+    <addaction name="selectAllAction"/>
+    <addaction name="separator"/>
+    <addaction name="findAction"/>
+    <addaction name="findAgainAction"/>
+    <addaction name="separator"/>
+    <addaction name="preferencesAction"/>
+   </widget>
+   <addaction name="fileMenu"/>
+   <addaction name="editMenu"/>
+   <addaction name="helpMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionNew">
+  <action name="newAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/document-new.png</normaloff>:/media/default/32x32/icons/document-new.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;New</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="openAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/document-open.png</normaloff>:/media/default/32x32/icons/document-open.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="recentsFormsAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/document-open-recent.png</normaloff>:/media/default/32x32/icons/document-open-recent.png</iconset>
+   </property>
+   <property name="text">
+    <string>Recents forms</string>
+   </property>
+  </action>
+  <action name="saveAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/document-save.png</normaloff>:/media/default/32x32/icons/document-save.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="saveAsAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/document-save-as.png</normaloff>:/media/default/32x32/icons/document-save-as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save As...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="printAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/document-print.png</normaloff>:/media/default/32x32/icons/document-print.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Print</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="saveImageAction">
+   <property name="text">
+    <string>Save &amp;image...</string>
+   </property>
+  </action>
+  <action name="closeAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/dialog-close.png</normaloff>:/media/default/32x32/icons/dialog-close.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="quitAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/application-exit.png</normaloff>:/media/default/32x32/icons/application-exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="undoAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/edit-undo.png</normaloff>:/media/default/32x32/icons/edit-undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="redoAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/edit-redo.png</normaloff>:/media/default/32x32/icons/edit-redo.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="preferencesAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/preferences-system.png</normaloff>:/media/default/32x32/icons/preferences-system.png</iconset>
+   </property>
+   <property name="text">
+    <string>Prefere&amp;nces</string>
+   </property>
+  </action>
+  <action name="action_Cut">
+   <property name="text">
+    <string>Cu&amp;t</string>
+   </property>
+  </action>
+  <action name="pasteAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/edit-paste.png</normaloff>:/media/default/32x32/icons/edit-paste.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Paste</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="copyAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/edit-copy.png</normaloff>:/media/default/32x32/icons/edit-copy.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="action_Paste_Cut">
+   <property name="text">
+    <string>&amp;Paste&amp;Cut</string>
+   </property>
+  </action>
+  <action name="deleteAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/edit-delete.png</normaloff>:/media/default/32x32/icons/edit-delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Delete</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="cutAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/edit-cut.png</normaloff>:/media/default/32x32/icons/edit-cut.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Cut</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="selectAllAction">
+   <property name="text">
+    <string>Select &amp;All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="findAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/edit-find.png</normaloff>:/media/default/32x32/icons/edit-find.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Find</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="findAgainAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/edit-find-replace.png</normaloff>:/media/default/32x32/icons/edit-find-replace.png</iconset>
+   </property>
+   <property name="text">
+    <string>Find A&amp;gain</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="polygonAreaHelpAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/help-contents.png</normaloff>:/media/default/32x32/icons/help-contents.png</iconset>
+   </property>
+   <property name="text">
+    <string>Polygon Area &amp;Help</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="releaseNotesAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/view-pim-notes.png</normaloff>:/media/default/32x32/icons/view-pim-notes.png</iconset>
+   </property>
+   <property name="text">
+    <string>Release &amp;Notes</string>
+   </property>
+  </action>
+  <action name="aboutPolygonAreaAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/help-about.png</normaloff>:/media/default/32x32/icons/help-about.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About Polygon Area</string>
+   </property>
+  </action>
+  <action name="reportBugsAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/media/default/32x32/icons/kbugbuster.png</normaloff>:/media/default/32x32/icons/kbugbuster.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Report Bugs...</string>
+   </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

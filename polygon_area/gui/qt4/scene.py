@@ -43,6 +43,7 @@ class GraphScene(QtGui.QGraphicsScene):
         self.isPaint = True
         self.polygon = Polygon()
         self.polygonArea = 0.0
+        self.updateWidgets()
         
     def mousePressEvent(self, event):
         super(GraphScene, self).mousePressEvent(event)
@@ -60,6 +61,9 @@ class GraphScene(QtGui.QGraphicsScene):
                         self.createPolygon()
                         self.isPaint = False
                         break
+                        
+    def updateWidgets(self):
+        self.setSceneRect(0.0, 0.0, 100.0, 100.0)
                         
     def createText(self, st, x, y):
         qst = QtCore.QString(st)
@@ -126,14 +130,15 @@ class GraphScene(QtGui.QGraphicsScene):
         # Draw vertice, if it does not exist in the list of vertices or 
         # if it is the last vertex of the polygon
         if vertice not in self._vertices or lastVertice:
-            self._vertices.append(vertice)
-            
             # Draw vertice
             self.addItem(vertice)
             
             # Draw text of the coordinates of vertice
             if not lastVertice:
                 self.addItem(self.createTextVertice(vertice))
+                
+            # Add vertice in list
+            self._vertices.append(vertice)
             
         # Draw segment
         vertices = self._vertices
@@ -144,7 +149,7 @@ class GraphScene(QtGui.QGraphicsScene):
             
     def removeVertice(self, vertice):
         try:
-            self._vertice.remove(vertice)
             self.removeItem(vertice)
+            self._vertice.remove(vertice)
         except KeyError:
             pass

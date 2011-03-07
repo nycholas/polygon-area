@@ -1,0 +1,38 @@
+<RCC>
+  <qresource prefix="/">
+    <file>media/default/32x32/icons/view-pim-notes.png</file>
+    <file>media/default/32x32/icons/kbugbuster.png</file>
+    <file>media/default/32x32/icons/preferences-system.png</file>
+    <file>media/default/32x32/icons/application-exit.png</file>
+    <file>media/default/32x32/icons/dialog-cancel.png</file>
+    <file>media/default/32x32/icons/dialog-close.png</file>
+    <file>media/default/32x32/icons/dialog-ok-apply.png</file>
+    <file>media/default/32x32/icons/dialog-ok.png</file>
+    <file>media/default/32x32/icons/document-new.png</file>
+    <file>media/default/32x32/icons/document-open-recent.png</file>
+    <file>media/default/32x32/icons/document-open.png</file>
+    <file>media/default/32x32/icons/document-print.png</file>
+    <file>media/default/32x32/icons/document-save-all.png</file>
+    <file>media/default/32x32/icons/document-save-as.png</file>
+    <file>media/default/32x32/icons/document-save.png</file>
+    <file>media/default/32x32/icons/edit-copy.png</file>
+    <file>media/default/32x32/icons/edit-cut.png</file>
+    <file>media/default/32x32/icons/edit-delete.png</file>
+    <file>media/default/32x32/icons/edit-find-replace.png</file>
+    <file>media/default/32x32/icons/edit-find.png</file>
+    <file>media/default/32x32/icons/edit-paste.png</file>
+    <file>media/default/32x32/icons/edit-redo.png</file>
+    <file>media/default/32x32/icons/edit-undo.png</file>
+    <file>media/default/32x32/icons/help-about.png</file>
+    <file>media/default/32x32/icons/help-contents.png</file>
+    <file>media/default/32x32/icons/list-add.png</file>
+    <file>media/default/32x32/icons/list-remove.png</file>
+    <file>media/default/32x32/icons/polygon-area.png</file>
+    <file>media/default/32x32/icons/rating.png</file>
+    <file>media/default/32x32/icons/svn_status.png</file>
+    <file>media/default/32x32/icons/view-fullscreen.png</file>
+    <file>media/default/32x32/icons/view-grid.png</file>
+    <file>media/default/32x32/icons/view-left-close.png</file>
+    <file>media/default/32x32/icons/view-refresh.png</file>
+  </qresource>
+</RCC>
