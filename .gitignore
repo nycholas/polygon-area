@@ -10,4 +10,5 @@ syntax: glob
 *.pydevproject
 *.project
 *.settings
+*.directory
 __pycache__
