@@ -34,6 +34,7 @@ from PySide import QtCore, QtGui, QtSvg
 
 from widgets.ui_mainwindow import Ui_MainWindow
 from graph import GraphWidget
+from about import About
 
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
@@ -131,6 +132,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                      self.closeGraph)
         self.connect(self.quitAction, QtCore.SIGNAL('triggered()'), 
                      self.quit)
+                     
+        # Help menu
+        self.connect(self.polygonAreaHelpAction, QtCore.SIGNAL('triggered()'), 
+                     self.help)
+        self.connect(self.releaseNotesAction, QtCore.SIGNAL('triggered()'), 
+                     self.releaseNotes)
+        self.connect(self.reportBugsAction, QtCore.SIGNAL('triggered()'), 
+                     self.reportBugs)
+        self.connect(self.aboutPolygonAreaAction, QtCore.SIGNAL('triggered()'), 
+                     self.about)
         
         # Tab widget
         self.connect(self.tabWidget, QtCore.SIGNAL('tabCloseRequested(int)'),
@@ -182,9 +193,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         
     def quit(self):
         self.close()
+
+    def help(self):
+        pass
         
-    def keyPressTab(self, event):
-        print event
+    def releaseNotes(self):
+        pass
+        
+    def reportBugs(self):
+        pass
+        
+    def about(self):
+        about = About(self)
+        about.exec_()
         
     def closeTab(self, index):
         widget = self.tabWidget.widget(index)

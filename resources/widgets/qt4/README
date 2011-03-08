@@ -1,3 +1,4 @@
 $ pyside-rcc resources.qrc -o resources_rc.py
 $ pyside-uic -o ui_mainwindow.py -x mainwindow.ui
+$ pyside-uic -o ui_about.py -x about.ui
 $ mv *.py ../../../polygon_area/gui/qt4/widgets/

@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="/">
     <file>media/default/32x32/icons/view-pim-notes.png</file>
+    <file>media/default/256x256/icons/polygon-area.png</file>
     <file>media/default/32x32/icons/kbugbuster.png</file>
     <file>media/default/32x32/icons/preferences-system.png</file>
     <file>media/default/32x32/icons/application-exit.png</file>
