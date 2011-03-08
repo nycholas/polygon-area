@@ -44,6 +44,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self._graphs = []
         self.createWidgets()
         self.updateWidgets()
+        self.createActions()
         
     def mouseMoveEvent(self, event):
         super(MainWindow, self).mouseMoveEvent(event)
@@ -56,40 +57,56 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     #    return self.statusBar()
         
     def createTest(self):
-        # Scene graph
-        graph = self._graphs[0]
-        scene = graph.scene
-    
-        # Crate vertices of polygon
-        vertices = [
-            scene.createVertice(QtCore.QPointF(30, 28)),
-            scene.createVertice(QtCore.QPointF(30, 33)),
-            scene.createVertice(QtCore.QPointF(50, 30)),
-        ]
-        vertices = [
-            scene.createVertice(QtCore.QPointF(20, 30)),
-            scene.createVertice(QtCore.QPointF(20, 50)),
-            scene.createVertice(QtCore.QPointF(40, 35)),
-            scene.createVertice(QtCore.QPointF(60, 50)),
-            scene.createVertice(QtCore.QPointF(60, 20)),
-            scene.createVertice(QtCore.QPointF(50, 5)),
-            scene.createVertice(QtCore.QPointF(20, 30)),
+        # Points of the polygon
+        points = [
+            [
+                QtCore.QPointF(30, 28),
+                QtCore.QPointF(30, 33),
+                QtCore.QPointF(50, 30),
+            ],
+            [
+                QtCore.QPointF(20, 30),
+                QtCore.QPointF(20, 50),
+                QtCore.QPointF(40, 35),
+                QtCore.QPointF(60, 50),
+                QtCore.QPointF(60, 20),
+                QtCore.QPointF(50, 5),
+                QtCore.QPointF(20, 30),
+            ]
         ]
         
-        # Draw vertices of polygon
-        for vertice in vertices:
-            scene.addVertice(vertice)
-        scene.addVertice(vertices[0], lastVertice=True)
+        # Result of the polygon area
+        results = [
+            50.0,
+            1050.0,
+        ]
         
-        # Draw polygon
-        scene.createPolygon()
+        for i, point in enumerate(points):
+            # Scene graph
+            if self.tabWidget.count() == i:
+                self.addGraph(self.createGraph())
+            graph = self.tabWidget.currentWidget()
+            scene = graph.scene
+            
+            # Create vertices of polygon
+            vertices = [scene.createVertice(pt) for pt in point]
         
-        # Painting hangs
-        scene.isPaint = False
+            # Draw vertices of polygon
+            for vertice in vertices:
+                scene.addVertice(vertice)
+            scene.addVertice(vertices[0], lastVertice=True)
         
-        # Check test
-        #assert self.scene.polygonArea == 50.0
-        assert scene.polygonArea == 1050.0
+            # Draw polygon
+            scene.createPolygon()
+            
+            # Painting hangs
+            scene.isPaint = False
+            
+            # Check test
+            assert scene.polygonArea == results[i]
+        
+        # Returns the main tab
+        self.tabWidget.setCurrentIndex(0)
         
     def createWidgets(self):
         self.tabWidget.clear()
@@ -105,16 +122,23 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.setMouseTracking(True)
         
     def createActions(self):
-        pass
+        # File menu
+        self.connect(self.newAction, QtCore.SIGNAL('triggered()'), 
+                     self.newGraph)
+        self.connect(self.openAction, QtCore.SIGNAL('triggered()'), 
+                     self.openGraph)
+        self.connect(self.closeAction, QtCore.SIGNAL('triggered()'), 
+                     self.closeGraph)
+        self.connect(self.quitAction, QtCore.SIGNAL('triggered()'), 
+                     self.quit)
+        
+        # Tab widget
+        self.connect(self.tabWidget, QtCore.SIGNAL('tabCloseRequested(int)'),
+                     self.closeTab)
         
     def createGraph(self):
         index = self.tabWidget.count()
         graph = GraphWidget(index, self)
-        
-        #graphGridLayout = QtGui.QGridLayout(self.tabScene0)
-        #graphGridLayout.setObjectName('graphGridLayout0')
-        #graphGridLayout.addWidget(self.graph, 0, 0, 1, 1)
-        
         return graph
         
     def addGraph(self, graph):
@@ -134,14 +158,37 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     None,
                     QtGui.QApplication.UnicodeUTF8))
             self.tabWidget.addTab(graph, icon, qst)
+            self.tabWidget.setCurrentWidget(graph)
             self._graphs.append(graph)
         
     def removeGraph(self, graph):
         try:
-            self.tabWidget.remove(graph)
+            index = self.tabWidget.indexOf(graph)
+            if index != -1:
+                self.tabWidget.removeTab(index)
             self._graphs.remove(graph)
         except KeyError:
             pass
+            
+    def newGraph(self):
+        self.addGraph(self.createGraph())
+        
+    def openGraph(self):
+        pass
+        
+    def closeGraph(self):
+        widget = self.tabWidget.currentWidget()
+        self.removeGraph(widget)
+        
+    def quit(self):
+        self.close()
+        
+    def keyPressTab(self, event):
+        print event
+        
+    def closeTab(self, index):
+        widget = self.tabWidget.widget(index)
+        self.removeGraph(widget)
         
 
 if __name__ == '__main__':

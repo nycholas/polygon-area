@@ -64,6 +64,11 @@ class Application(QtGui.QApplication):
         # Show main window
         self.__mainWindow.show()
         
+        # Actions
+        if not QtGui.QSystemTrayIcon.isSystemTrayAvailable():
+            self.connect(self, QtCore.SIGNAL("lastWindowClosed()"), 
+                         self, QtCore.SLOT("quit()"))
+        
         # Exec main loop
         sys.exit(self.exec_())
         
